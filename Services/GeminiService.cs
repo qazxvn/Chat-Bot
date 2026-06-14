@@ -1,10 +1,11 @@
 using Google.GenAI;
 using Google.GenAI.Types;
+using Microsoft.Extensions.Configuration;
 using Telegram.Bot.Types;
 
 namespace ChatBot.Services;
 
-public class GeminiService : IGeminiService
+public class GeminiService(IConfiguration configuration) : IGeminiService
 {
     public async Task<string> GetAiResponse(Message msg)
     {
@@ -14,7 +15,9 @@ public class GeminiService : IGeminiService
         string[] mess = messageStr.Split(' ');
         var finalMess = string.Join(" ", mess.Skip(1));
         
-        var client = new Client(apiKey: "AIzaSyA8iko5VRWLVxaYAxTeqVBRgF5PCh3EHKw");
+        
+        
+        var client = new Client(apiKey: $"{configuration["GEMINI_API_KEY"]}");
 
         var systemInstruction = new Content
         {
@@ -60,14 +63,14 @@ public class GeminiService : IGeminiService
         {
             try
             {
-                var response = await client.Models.GenerateContentAsync(model: "gemini-1.5-pro", contents: finalMess, config: config);
+                var response = await client.Models.GenerateContentAsync(model: "gemini-3.1-flash-lite", contents: finalMess, config: config);
                 
                 return response.Text ?? "Ответ пустой";
             }
             catch (Exception ex)
             {
                 if (i == attempt - 1)
-                    Console.WriteLine("AI перегружен");
+                    Console.WriteLine($"AI перегружен {ex}");
 
                 await Task.Delay(1000 * (i + 1));
             }
