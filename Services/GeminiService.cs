@@ -60,7 +60,7 @@ public class GeminiService : IGeminiService
         {
             try
             {
-                var response = await client.Models.GenerateContentAsync(model: "gemini-3-flash-preview", contents: finalMess, config: config);
+                var response = await client.Models.GenerateContentAsync(model: "gemini-1.5-pro", contents: finalMess, config: config);
                 
                 return response.Text ?? "Ответ пустой";
             }
