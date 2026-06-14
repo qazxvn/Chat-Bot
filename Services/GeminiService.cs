@@ -14,7 +14,7 @@ public class GeminiService : IGeminiService
         string[] mess = messageStr.Split(' ');
         var finalMess = string.Join(" ", mess.Skip(1));
         
-        var client = new Client(apiKey: "");
+        var client = new Client(apiKey: "AIzaSyA8iko5VRWLVxaYAxTeqVBRgF5PCh3EHKw");
 
         var systemInstruction = new Content
         {

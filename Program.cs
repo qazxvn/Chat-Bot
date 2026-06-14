@@ -16,7 +16,7 @@ builder.Configuration.SetBasePath(AppContext.BaseDirectory)
 
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<ITelegramBotClient>(provider => 
-    new TelegramBotClient(""));
+    new TelegramBotClient("8550020751:AAGRDL1q24yTi5dkkN-gj0UR-V6-e3agN5w"));
 
 builder.Services.AddHostedService<StartBotWork>();
 builder.Services.AddScoped<IDbRepository, DbRepository>();
